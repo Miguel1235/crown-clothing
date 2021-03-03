@@ -4,12 +4,12 @@ import ShopPage from "./Pages/ShopPage/ShopPage";
 import Header from "./Components/Header/Header";
 import SignInAndSignUp from "./Pages/SignInAndSignUp/SignInAndSignUp";
 import { auth, createUserProfileDocument } from "./Firebase/FirebaseUtils";
-import { useEffect, useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { useEffect } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./Redux/user/userActions";
 
-const App = ({setCurrentUser}) => {
+const App = ({ setCurrentUser, currentUser}) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChange();
     return () => unsubscribe();
@@ -37,15 +37,18 @@ const App = ({setCurrentUser}) => {
           <ShopPage />
         </Route>
         <Route path="/signIn" exact strict>
-          <SignInAndSignUp />
+          {currentUser? <Redirect to="/" /> : <SignInAndSignUp />}
         </Route>
       </Switch>
     </div>
   );
 };
 
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user))
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

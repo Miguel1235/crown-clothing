@@ -1,10 +1,12 @@
 import "./Header.scss";
 import { Link } from "react-router-dom";
 import Logo from "../../Assets/crown.svg";
-import {auth} from "../../Firebase/FirebaseUtils"
-import {connect} from "react-redux"
+import { auth } from "../../Firebase/FirebaseUtils";
+import { connect } from "react-redux";
+import CartIcon from "../CartIcon/CartIcon";
+import CartDropdown from "../CartDropdown/CartDropDown";
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, isCartHidden}) => {
   return (
     <div className="header">
       <Link className="logoContainer" to="/">
@@ -18,7 +20,7 @@ const Header = ({ currentUser }) => {
           CONTACT
         </Link>
         {currentUser ? (
-          <Link className="optionMenu" to="/" onClick={()=>auth.signOut()}>
+          <Link className="optionMenu" to="/" onClick={() => auth.signOut()}>
             SIGN OUT
           </Link>
         ) : (
@@ -26,12 +28,15 @@ const Header = ({ currentUser }) => {
             SIGN IN
           </Link>
         )}
+        <CartIcon />
       </div>
+      {isCartHidden ? null : <CartDropdown />}
     </div>
   );
 };
 
-const mapStateToProps = (state) =>({
-    currentUser:state.user.currentUser
-})
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser: currentUser,
+  isCartHidden: hidden,
+});
 export default connect(mapStateToProps)(Header);
