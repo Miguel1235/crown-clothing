@@ -1,21 +1,15 @@
+import CollectionItem from "../CollectionItem/CollectionItem";
 import "./CollectionPreview.scss";
-import CollectionItem from "../CollectionItem/CollectionItem"
 
 const CollectionPreview = ({ title, items }) => {
-  return (
-    <div className="collectionPreview">
-      <h1 className="title">{title.toUpperCase()}</h1>
-      <div className="preview">
-        {items
-          .filter((item, index) => index < 4)
-          .map(({id,...otherProps}) => (
-            <CollectionItem key={id} {...otherProps} />
-          ))}
-      </div>
+  return (<div className = "collectionPreview">
+    <h1 className = "title">{title.toUpperCase()}</h1>
+    <div className = "preview">
+      {items
+        .filter((item, index) => index < 4)
+        .map((item) => (<CollectionItem key = {item.id} item = {item}/>))}
     </div>
-  );
+  </div>);
 };
 
 export default CollectionPreview;
-
-            //<div key={item.id}>{item.name}</div>
