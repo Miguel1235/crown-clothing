@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect} from "react-router-dom";
 import "./App.css";
 import Header from "./Components/Header/Header";
 import { auth, createUserProfileDocument } from "./Firebase/FirebaseUtils";
@@ -29,20 +29,20 @@ const App = ({ setCurrentUser, currentUser }) => {
   };
 
   return (
-    <div className = "center">
-      <Header/>
+    <div className="center">
+      <Header />
       <Switch>
-        <Route path = "/" exact strict>
-          <HomePage/>
+        <Route path="/" exact strict>
+          <HomePage />
         </Route>
-        <Route path = "/shop" exact strict>
-          <ShopPage/>
+        <Route path="/shop/" strict>
+          <ShopPage />
         </Route>
-        <Route path = "/signIn" exact strict>
-          {currentUser ? <Redirect to = "/"/> : <SignInAndSignUp/>}
+        <Route path="/signIn" exact strict>
+          {currentUser ? <Redirect to="/" /> : <SignInAndSignUp />}
         </Route>
-        <Route path = "/checkOut" exact strict>
-          <CheckOut/>
+        <Route path="/checkOut" exact strict>
+          <CheckOut />
         </Route>
       </Switch>
     </div>
@@ -50,10 +50,10 @@ const App = ({ setCurrentUser, currentUser }) => {
 };
 
 const mapStateToProps = (state) => ({
-  currentUser: selectCurrentUser(state)
+  currentUser: selectCurrentUser(state),
 });
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user))
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
