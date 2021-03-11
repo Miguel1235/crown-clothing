@@ -9,9 +9,13 @@ const ShopPage = () => {
       <Route exact path="/shop">
         <CollectionOverview />
       </Route>
+      {
+        match?
       <Route>
         <Collection collectionName={match.params.collectionId} />
       </Route>
+      :null
+      }
     </div>
   );
 };

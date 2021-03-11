@@ -35,7 +35,7 @@ const App = ({ setCurrentUser, currentUser }) => {
         <Route path="/" exact strict>
           <HomePage />
         </Route>
-        <Route path="/shop/" strict>
+        <Route path="/shop" strict>
           <ShopPage />
         </Route>
         <Route path="/signIn" exact strict>
